@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="org.example.crudemployeemanage.dao.EmpMapper">
+    <select id="getEmployeeById" resultType="org.example.crudemployeemanage.bean.Employee">
+        select *
+        from employee
+        where id = #{id}
+    </select>
+    <select id="getEmployeeByName" resultType="org.example.crudemployeemanage.bean.Employee">
+        select *
+        from employee
+        where name=#{name}
+    </select>
+    <select id="getEmployees" resultType="org.example.crudemployeemanage.bean.Employee">
+        select *
+        from employee
+    </select>
+    <insert id="insertEmployee">
+        INSERT INTO employee(name,age, email, gender,
+        address, salary)
+        values ( #{name},#{age}, #{email}, #{gender}, #{address}, #{salary})
+    </insert>
+    <update id="updateEmployee">
+        UPDATE employee
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="age!=null and age!=''">
+                age=#{age},
+            </if>
+            <if test="email!=null and email!=''">
+                email= #{email},
+            </if>
+            <if test="gender!=null and gender!=''">
+                gender=#{gender},
+            </if>
+            <if test="address!=null">
+                address=#{address},
+            </if>
+            <if test="salary!=null">
+                salary=#{salary}
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="deleteEmployee">
+        DELETE from employee where id=#{id}
+    </delete>
+</mapper>
